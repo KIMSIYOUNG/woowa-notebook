@@ -9,8 +9,25 @@ import java.util.Set;
 public class UserInput {
     private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
     private static final String BLANK = "";
+    private static final int END_GAME = 2;
 
-    public static boolean wantToEnd() {
+    public static boolean wantToEnd() throws IOException {
+        PrintHandler.inputGameReStartOrEnd();
+        try {
+            return checkEndNumber(Integer.parseInt(BR.readLine().trim()));
+        }catch (NumberFormatException e){
+            PrintHandler.errorInputEndOrStart();
+            return wantToEnd();
+        }
+    }
+
+    private static boolean checkEndNumber(int parseInt) throws IOException {
+        if(parseInt==END_GAME)
+            return true;
+        if(parseInt!=1){
+            PrintHandler.errorInputEndOrStart();
+            return wantToEnd();
+        }
         return false;
     }
 

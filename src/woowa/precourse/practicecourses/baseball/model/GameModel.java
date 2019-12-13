@@ -28,6 +28,7 @@ public class GameModel {
 
     public void playGame() throws IOException {
         randomNumber = generateRandomNumber();
+        System.out.println(randomNumber);
         do {
             userNumber = userInput.makeNumber();
             compareBoth();
@@ -38,12 +39,22 @@ public class GameModel {
     private void compareBoth() {
         strikeCount = 0;
         ballCount = 0;
-        countStrikeAndBall(intToList(randomNumber),intToList(userNumber));
+        countStrike(intToList(randomNumber),intToList(userNumber));
     }
 
-    private void countStrikeAndBall(List<String> intToList, List<String> intToList1) {
-
+    private void countStrike(List<String> randomNumberList, List<String> userNumberList) {
+        for(int i=0; i<DIGIT_NUMBER; i++){
+            calculateStrikeAndBall(randomNumberList, userNumberList, i);
+        }
     }
+
+    private void calculateStrikeAndBall(List<String> randomNumberList, List<String> userNumberList, int i) {
+        if(randomNumberList.get(i).equals(userNumberList.get(i)))
+            strikeCount++;
+        if(!randomNumberList.get(i).equals(userNumberList.get(i)) && randomNumberList.contains(userNumberList.get(i)))
+            ballCount++;
+    }
+
 
     private List<String> intToList(int number) {
         return Arrays.asList(String.valueOf(number).split(BLANK));
@@ -51,9 +62,10 @@ public class GameModel {
 
     private int generateRandomNumber() {
         Set<Integer> setForRandomNumber = new HashSet<>();
-        while (setForRandomNumber.size() != DIGIT_NUMBER) {
-            setForRandomNumber.add((int) (Math.random() + RANGE + START_POINT));
-        }
+        do {
+            setForRandomNumber.add((int) (Math.random() * RANGE + START_POINT));
+        }while (setForRandomNumber.size() != DIGIT_NUMBER);
+
         return setToNumber(setForRandomNumber);
     }
 

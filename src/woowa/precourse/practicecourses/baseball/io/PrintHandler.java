@@ -6,6 +6,8 @@ public class PrintHandler {
     private static final String ERROR_USER_INPUT = "입력 포맷이 잘못되었습니다. 다시 입력 해 주세요!";
     private static final String ERROR_INPUT_DUPLICATION = "각 자리수마다 다른 수를 입력 해 주세요.";
     private static final int ZERO = 0;
+    private static final String INPUT_GAME_RESTART_OR_END = "게임을 재 시작하려면 1번, 종료하려면 2번을 눌러주세요";
+    private static final String ERROR_INPUT_END_OR_START = "입력 형식이 잘 못되었습니다. 다시 입력 해 주세요";
 
     public static void errorInProgram() {
         System.out.println(ERROR_IN_PROGRAM);
@@ -34,4 +36,11 @@ public class PrintHandler {
         System.out.println(sb.toString());
     }
 
+    public static void inputGameReStartOrEnd() {
+        System.out.println(INPUT_GAME_RESTART_OR_END);
+    }
+
+    public static void errorInputEndOrStart() {
+        System.out.println(ERROR_INPUT_END_OR_START);
+    }
 }
