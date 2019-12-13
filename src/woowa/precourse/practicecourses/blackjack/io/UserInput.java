@@ -19,16 +19,17 @@ public class UserInput {
     public List<String> makeUserNames() throws IOException {
         PrintHandler.inputUserNameRule();
         String[] userNames = BR.readLine().trim().split(COMMA);
-        if (validator.checkUserNames(userNames))
+        if (validator.checkUserNames(userNames)) {
             return Arrays.asList(userNames);
+        }
         PrintHandler.errorUserName();
         return makeUserNames();
     }
 
     public List<Double> makeBettingMoney(List<String> names) throws IOException {
         List<Double> bettingMoneyList = new ArrayList<>();
-        for (int i = 0; i < names.size(); i++) {
-            PrintHandler.inputBettingMoney(names.get(i));
+        for (String name : names) {
+            PrintHandler.inputBettingMoney(name);
             double bettingMoney = inputBettingMoney();
             bettingMoneyList.add(bettingMoney);
         }

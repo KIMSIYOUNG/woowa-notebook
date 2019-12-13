@@ -23,7 +23,7 @@ public class GameModel<T extends User> {
     public GameModel() {
         this.dealer = new Dealer();
         cards = CardFactory.create();
-        for(Card c : cards){
+        for (Card c : cards) {
             System.out.println(c.toString());
         }
     }
@@ -35,9 +35,9 @@ public class GameModel<T extends User> {
     }
 
     private int checkDuplicationAndGiveCard(User user, int index) {
-        if(setForDuplication.contains(index)){
+        if (setForDuplication.contains(index)) {
             index = chooseRandomCard();
-            return checkDuplicationAndGiveCard(user,index);
+            return checkDuplicationAndGiveCard(user, index);
         }
         user.addCard(cards.get(index));
         return index;
@@ -45,14 +45,14 @@ public class GameModel<T extends User> {
 
 
     public void giveCards() throws IOException {
-        for (int i = 0; i < players.size(); i++) {
-            giveTwoCards(players.get(i));
+        for (Player player : players) {
+            giveTwoCards(player);
         }
         giveTwoCards(dealer);
         PrintHandler.printUserAndCards(dealer, players);
 
-        for(int i=0; i<players.size(); i++){
-            chooseAdditionalCard(players.get(i));
+        for (Player player : players) {
+            chooseAdditionalCard(player);
         }
         dealerAdditionalCard();
     }
@@ -71,7 +71,7 @@ public class GameModel<T extends User> {
 
     public boolean chooseAdditionalCard(Player user) throws IOException {
 
-        if(userInput.chooseAdditionalCard(user)){
+        if (userInput.chooseAdditionalCard(user)) {
             giveAdditionalCard(user, true);
             PrintHandler.printUserNameAndCards(user);
             return chooseAdditionalCard(user);
@@ -81,16 +81,16 @@ public class GameModel<T extends User> {
 
     private boolean dealerAdditionalCard() {
         int dealerSum = dealer.sumOfCardToAdd();
-        if(dealerSum<=16){
+        if (dealerSum <= 16) {
             PrintHandler.printOneMoreCardToDealer();
-            giveAdditionalCard(dealer,true);
+            giveAdditionalCard(dealer, true);
             return dealerAdditionalCard();
         }
         return false;
     }
 
     private void giveAdditionalCard(User user, boolean addCard) {
-        if(addCard){
+        if (addCard) {
             int index = chooseRandomCard();
             int indexForSet = checkDuplicationAndGiveCard(user, index);
             setForDuplication.add(indexForSet);
@@ -98,13 +98,12 @@ public class GameModel<T extends User> {
     }
 
     public void getResult() {
-        PrintHandler.printCardAndSum(players,dealer);
+        PrintHandler.printCardAndSum(players, dealer);
         PrintHandler.printOverNumberPlayer(players);
         List<Integer> playersCardSum = new ArrayList<>();
-        for(int i=0; i<players.size(); i++){
-            playersCardSum.add(players.get(i).sumOfCard());
+        for (Player player : players) {
+            playersCardSum.add(player.sumOfCard());
         }
         Integer playerMax = Collections.max(playersCardSum);
-
     }
 }

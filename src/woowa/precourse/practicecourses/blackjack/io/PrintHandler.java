@@ -46,8 +46,8 @@ public class PrintHandler {
     public static void printUserAndCards(Dealer dealer, List<Player> players) {
         List<String> names = new ArrayList<>();
         String result = DEALER_AND;
-        for (int i = 0; i < players.size(); i++) {
-            names.add(players.get(i).getName());
+        for (Player player : players) {
+            names.add(player.getName());
         }
         result += result.join(COMMA,names) + GIVE_TWO_CARDS;
         System.out.println(result);
@@ -57,8 +57,7 @@ public class PrintHandler {
     private static void printBasicCards(Dealer dealer, List<Player> players) {
         StringBuilder sb = new StringBuilder();
         sb.append(DEALER).append(COLON).append(dealer.getCards().get(0)).append("\n");
-        for(int i=0;i<players.size(); i++){
-            Player player = players.get(i);
+        for (Player player : players) {
             sb.append(player.getName()).append(COLON).append(player.getCards().toString()).append("\n");
         }
         System.out.println(sb.toString());
@@ -79,8 +78,8 @@ public class PrintHandler {
     public static void printCardAndSum(List<Player> players, Dealer dealer) {
         System.out.print(NEXT_LINE);
         System.out.println("딜러 : " + dealer.getCards().toString() + " 결과 : " + dealer.sumOfCard());
-        for(int i=0; i<players.size(); i++){
-            System.out.println(players.get(i).getName() + " : " +players.get(i).getCards().toString()+ " 결과 : "+players.get(i).sumOfCard());
+        for (Player player : players) {
+            System.out.println(player.getName() + " : " + player.getCards().toString() + " 결과 : " + player.sumOfCard());
         }
     }
 
@@ -89,9 +88,13 @@ public class PrintHandler {
     }
 
     public static void printOverNumberPlayer(List<Player> players) {
-        for(int i =0;i<players.size(); i++){
-            if(players.get(i).sumOfCard() > 21)
-                System.out.println(players.get(i).getBettingMoney()*-1);
+        for (Player player : players) {
+            testOverNumberAndPrint(player);
         }
+    }
+
+    private static void testOverNumberAndPrint(Player player) {
+        if (player.sumOfCard() > 21)
+            System.out.println(player.getBettingMoney() * -1);
     }
 }

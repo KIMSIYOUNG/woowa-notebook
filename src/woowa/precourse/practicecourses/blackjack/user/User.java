@@ -19,8 +19,8 @@ public class User {
 
     public int sumOfCardToAdd(){
         int sum = 0;
-        for (int i = 0; i < cards.size(); i++) {
-            sum += cards.get(i).getSymbol().getScore();
+        for (Card card : cards) {
+            sum += card.getSymbol().getScore();
         }
         return sum;
     }
@@ -30,8 +30,8 @@ public class User {
         if (cards.contains(Symbol.ACE)) {
             sum += sumWithAce(sum);
         }
-        for (int i = 0; i < cards.size(); i++) {
-            sum += cards.get(i).getSymbol().getScore();
+        for (Card card : cards) {
+            sum += card.getSymbol().getScore();
         }
         return sum;
     }
@@ -39,8 +39,8 @@ public class User {
 
     private int sumWithAce(int sum) {
         Card ace = cards.remove(cards.indexOf(Symbol.ACE));
-        for (int i = 0; i < cards.size(); i++) {
-            sum += cards.get(i).getSymbol().getScore();
+        for (Card card : cards) {
+            sum += card.getSymbol().getScore();
         }
         if (sum <= 10)
             sum += 11;

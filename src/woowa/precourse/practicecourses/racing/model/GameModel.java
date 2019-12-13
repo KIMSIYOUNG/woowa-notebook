@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import woowa.precourse.practicecourses.racing.domain.Car;
 import woowa.precourse.practicecourses.racing.io.PrintHandler;
@@ -30,22 +29,21 @@ public class GameModel {
     public void getResult() {
         List<String> winners = new ArrayList<>();
         int maxPosition = getMaxPosition();
-        for (int i = 0; i < userCars.size(); i++) {
-            whoIsTheSameAsMaxPosition(winners, maxPosition, i);
+        for (Car userCar : userCars) {
+            isMaxPosition(winners, maxPosition, userCar);
         }
         PrintHandler.printWinner(winners);
+    }
+
+    private void isMaxPosition(List<String> winners, int maxPosition, Car userCar) {
+        if (userCar.isMaxPosition(maxPosition))
+            winners.add(userCar.getName());
     }
 
     private void getEachCarPosition() {
         for (Car userCar : userCars) {
             userCar.checkGoOrStop();
             PrintHandler.printCarNameAndPosition(userCar);
-        }
-    }
-
-    private void whoIsTheSameAsMaxPosition(List<String> winners, int maxPosition, int i) {
-        if (maxPosition == userCars.get(i).getPosition()) {
-            winners.add(userCars.get(i).getName());
         }
     }
 
