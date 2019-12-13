@@ -11,7 +11,7 @@ public class PrintHandler {
     private static final String INPUT_BETTING_MONEY = " 님의 배팅 금액은?";
     private static final String ERROR_OF_ZERO = "배팅금액은 0원이 될 수 없습니다.";
     private static final String ERROR_INPUT_BETTING_MONEY = "배팅금액의 입력이 잘못되었습니다.";
-    private static final String WANT_TO_ONE_MORE_CARD = " 님 한장의 카드를 더 받겠습니까?";
+    private static final String WANT_TO_ONE_MORE_CARD = " 님 한장의 카드를 더 받겠습니까? (받는다 : Y 받지않는다 : N)";
     private static final String ERROR_YES_OR_NO = "Y 또는 N으로 입력해주세요(대소문자 관계없습니다)";
     private static final String DEALER_ONE_MORE_CARD = "딜러의 카드의 합이 16이하라 한장의 카드를 더 받았습니다.";
     private static final String RESULT =" 결과 : ";
@@ -64,14 +64,26 @@ public class PrintHandler {
 
     public static void showNamesAndCardsAndSum(Dealer dealer, List<Player> players) {
         System.out.print(NEXT_LINE);
-        System.out.println(dealer.toString()+RESULT+dealer.sumOfCard());
+        System.out.println(dealer.toString());
         for(int i=0;i<players.size(); i++){
-            System.out.println(players.get(i).toString()+RESULT+players.get(i).sumOfCard());
+            System.out.println(players.get(i).toString());
         }
-    }
-    public static void printFinalResult(Object calculateResult) {
-
+        System.out.println(NEXT_LINE + "최종 결과는 아래에 표기됩니다."+NEXT_LINE);
     }
 
+    public static void printPlayerProfit(Player player) {
+        System.out.println(player.getName() + "님의 수익 : " + (player.getBettingMoney() * -1) );
+    }
 
+    public static void printResultOfDelaer(int sumOfBettingMoney) {
+        System.out.println("딜러의 수익 : " + sumOfBettingMoney);
+    }
+
+    public static void winner(Player player) {
+        System.out.println(player.getName() + "님의 수익" + player.getBettingMoney());
+    }
+
+    public static void draw(Player player) {
+        System.out.println(player.getName() + "님의 수익 " + 0);
+    }
 }

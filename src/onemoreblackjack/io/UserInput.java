@@ -15,7 +15,7 @@ public class UserInput {
     public List<String> makeUserNames() throws IOException {
         PrintHandler.inputUserNames();
         String[] userNames = BR.readLine().trim().split(COMMA);
-        if(checkNames(userNames))
+        if (checkNames(userNames))
             return Arrays.asList(userNames);
         PrintHandler.errorInputNames();
         return makeUserNames();
@@ -23,7 +23,9 @@ public class UserInput {
 
     private boolean checkNames(String[] userNames) {
         int count = 0;
-        for(int i=0; i<userNames.length; i++){
+        if (userNames.length < 2 || userNames.length > 8)
+            return false;
+        for (int i = 0; i < userNames.length; i++) {
             count += checkNameSize(userNames[i]);
         }
         return count == userNames.length;
@@ -31,31 +33,31 @@ public class UserInput {
 
     private int checkNameSize(String name) {
         int count = 0;
-        if(name.length()!=ZERO)
+        if (name.length() != ZERO)
             count++;
         return count;
     }
 
     public List<Double> makeBettingMoneys(List<String> userNames) throws IOException {
         List<Double> bettingMoneys = new ArrayList<>();
-        for(int i=0; i<userNames.size(); i++){
+        for (int i = 0; i < userNames.size(); i++) {
             bettingMoneys.add(inputBettingMoney(userNames.get(i)));
         }
         return bettingMoneys;
     }
 
     private double inputBettingMoney(String name) throws IOException {
-        try{
+        try {
             PrintHandler.howMuchBettingMoney(name);
-            return checkBettingMoney(Double.parseDouble(BR.readLine().trim()),name);
-        }catch (NumberFormatException e){
+            return checkBettingMoney(Double.parseDouble(BR.readLine().trim()), name);
+        } catch (NumberFormatException e) {
             PrintHandler.errorInputBettingMoney();
             return inputBettingMoney(name);
         }
     }
 
-    private double checkBettingMoney(double parseDouble,String name) throws IOException {
-        if(parseDouble != ZERO)
+    private double checkBettingMoney(double parseDouble, String name) throws IOException {
+        if (parseDouble != ZERO)
             return parseDouble;
         PrintHandler.errorOfZero();
         return inputBettingMoney(name);
@@ -63,9 +65,9 @@ public class UserInput {
 
     public boolean wantToMore() throws IOException {
         String userInput = BR.readLine().trim().toUpperCase();
-        if(userInput.equals("Y"))
+        if (userInput.equals("Y"))
             return true;
-        if(userInput.equals("N"))
+        if (userInput.equals("N"))
             return false;
         PrintHandler.errorYesOrNo();
         return wantToMore();

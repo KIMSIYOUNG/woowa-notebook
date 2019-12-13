@@ -29,8 +29,7 @@ public class User {
         int sum = 0;
         for(int i=0; i<cards.size(); i++){
             if(cards.get(i).getSymbol().equals(Symbol.ACE)){
-                sum += sumWithAce(cards.get(i));
-                break;
+                return sumWithAce(cards.get(i));
             }
         }
         for (int i = 0; i < cards.size(); i++) {
@@ -46,7 +45,7 @@ public class User {
             sum += cards.get(i).getSymbol().getScore();
         }
         if (sum <= 10)
-            sum += 11;
+            sum += 10;
         if (sum >= 11)
             sum += 1;
         cards.add(card);
