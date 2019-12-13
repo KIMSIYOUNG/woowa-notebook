@@ -1,5 +1,7 @@
     package woowa.precourse.practicecourses.racing.domain;
 
+    import java.util.stream.Stream;
+
     public class Car {
         private static final int MIN_OF_GO = 4;
         private final String name;

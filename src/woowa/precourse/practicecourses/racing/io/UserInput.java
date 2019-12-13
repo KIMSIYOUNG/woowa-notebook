@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserInput {
     private static final String COMMA = ",";
@@ -15,7 +16,7 @@ public class UserInput {
     public List<String> inputUsers() throws IOException {
         PrintHandler.inputUserNames();
         String[] names = BR.readLine().trim().split(COMMA);
-        if (checkNameSize(names) && checkUserCount(names))
+        if (!checkNameSizeOk(names) && checkUserCount(names))
             return Arrays.asList(names);
         PrintHandler.errorUserNames();
         return inputUsers();
@@ -25,20 +26,12 @@ public class UserInput {
         return names.length != ZERO && names.length <= MAX_USER_COUNT;
     }
 
-    private boolean checkNameSize(String[] names) {
-        int nameLengthZeroCount = 0;
-        for (int i = 0; i < names.length; i++) {
-            nameLengthZeroCount = getNameLengthZeroCount(names[i], nameLengthZeroCount);
-        }
-        return nameLengthZeroCount == ZERO;
+    private boolean checkNameSizeOk(String[] names) {
+        return Arrays.stream(names)
+                .map(s -> s.length() == ZERO)
+                .collect(Collectors.toList())
+                .contains(true);
     }
-
-    private int getNameLengthZeroCount(String name, int nameLengthZeroCount) {
-        if (name.length() == ZERO)
-            nameLengthZeroCount++;
-        return nameLengthZeroCount;
-    }
-
 
     public int inputHowMany() throws IOException {
         PrintHandler.inputHowMany();

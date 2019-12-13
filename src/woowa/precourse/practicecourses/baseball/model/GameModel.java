@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import woowa.precourse.practicecourses.baseball.io.PrintHandler;
 import woowa.precourse.practicecourses.baseball.io.UserInput;
@@ -32,26 +33,27 @@ public class GameModel {
         do {
             userNumber = userInput.makeNumber();
             compareBoth();
-            PrintHandler.printCompareResult(strikeCount,ballCount);
-        }while (randomNumber != userNumber);
+            PrintHandler.printCompareResult(strikeCount, ballCount);
+        } while (randomNumber != userNumber);
     }
 
     private void compareBoth() {
         strikeCount = 0;
         ballCount = 0;
-        countStrike(intToList(randomNumber),intToList(userNumber));
+        countStrike(intToList(randomNumber), intToList(userNumber));
     }
 
     private void countStrike(List<String> randomNumberList, List<String> userNumberList) {
-        for(int i=0; i<DIGIT_NUMBER; i++){
+        for (int i = 0; i < DIGIT_NUMBER; i++) {
             calculateStrikeAndBall(randomNumberList, userNumberList, i);
         }
     }
 
     private void calculateStrikeAndBall(List<String> randomNumberList, List<String> userNumberList, int i) {
-        if(randomNumberList.get(i).equals(userNumberList.get(i)))
+        if (randomNumberList.get(i).equals(userNumberList.get(i)))
             strikeCount++;
-        if(!randomNumberList.get(i).equals(userNumberList.get(i)) && randomNumberList.contains(userNumberList.get(i)))
+        if (!randomNumberList.get(i).equals(userNumberList.get(i))
+                && randomNumberList.contains(userNumberList.get(i)))
             ballCount++;
     }
 
@@ -64,16 +66,16 @@ public class GameModel {
         Set<Integer> setForRandomNumber = new HashSet<>();
         do {
             setForRandomNumber.add((int) (Math.random() * RANGE + START_POINT));
-        }while (setForRandomNumber.size() != DIGIT_NUMBER);
+        } while (setForRandomNumber.size() != DIGIT_NUMBER);
 
         return setToNumber(setForRandomNumber);
     }
 
     private int setToNumber(Set<Integer> setForRandomNumber) {
-        String result = BLANK;
-        for(Integer i : setForRandomNumber)
-            result += String.valueOf(i);
-        return Integer.parseInt(result);
+        return Integer.parseInt(setForRandomNumber
+                        .stream()
+                        .map(s -> String.valueOf(s))
+                        .collect(Collectors.joining()));
     }
 
 }
