@@ -176,7 +176,7 @@ public class GameModel {
 
     private double playerDrawDealer(Map<String, Double> playersAndProfits, double totalOfBetting, Player player) {
         if (player.cardSumWithAce() == dealer.cardSumWithAce() && !playersAndProfits.containsKey(player.getName())) {
-            playersAndProfits.put(player.getName(), ZERO_PROFIT);
+            playersAndProfits.put(player.getName(), player.getBettingMoney());
             totalOfBetting -= player.getBettingMoney();
         }
         return totalOfBetting;
@@ -184,7 +184,7 @@ public class GameModel {
 
     private double playerWin(Map<String, Double> playersAndProfits, double totalOfBetting, Player player) {
         if (player.cardSumWithAce() > dealer.cardSumWithAce() && !playersAndProfits.containsKey(player.getName())) {
-            playersAndProfits.put(player.getName(), player.getBettingMoney());
+            playersAndProfits.put(player.getName(), player.getBettingMoney()*MULTIPLIER_PROFIT);
             totalOfBetting -= player.getBettingMoney() * MULTIPLIER_PROFIT;
         }
         return totalOfBetting;
