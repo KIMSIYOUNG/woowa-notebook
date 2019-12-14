@@ -13,7 +13,7 @@ public class UserInput {
     private static final int MAX_OF_USER = 8;
     private static final int MIN_OF_USER = 2;
 
-    public static boolean inputHaveMore(String name) throws IOException {
+    public static boolean inputWantToHaveMore(String name) throws IOException {
         PrintHandler.inputOneMoreCard(name);
         String userInput = BR.readLine().trim().toUpperCase();
         return isItYes(name, userInput);
@@ -24,7 +24,7 @@ public class UserInput {
             return true;
         if(!userInput.equals("N")){
             PrintHandler.errorInputYesOrNo();
-            return inputHaveMore(name);
+            return inputWantToHaveMore(name);
         }
         return false;
     }
@@ -32,23 +32,23 @@ public class UserInput {
     public List<String> inputNames() throws IOException {
         PrintHandler.inputUserNames();
         String[] userNamesArray = BR.readLine().trim().split(COMMA);
-        if (userNameOk(userNamesArray) && rangeOfUsers(userNamesArray) && notDuplication(userNamesArray))
+        if (userNameIsOk(userNamesArray) && checkRangeOfUsers(userNamesArray) && checkNotDuplicated(userNamesArray))
             return Arrays.asList(userNamesArray);
         PrintHandler.errorInputNames();
         return inputNames();
     }
 
-    private boolean notDuplication(String[] userNamesArray) {
+    private boolean checkNotDuplicated(String[] userNamesArray) {
         return userNamesArray.length ==
                 Arrays.stream(userNamesArray).collect(Collectors.toSet()).size();
     }
 
-    private boolean rangeOfUsers(String[] userNamesArray) {
+    private boolean checkRangeOfUsers(String[] userNamesArray) {
         int length = userNamesArray.length;
         return length >= MIN_OF_USER && length <= MAX_OF_USER;
     }
 
-    private boolean userNameOk(String[] userNamesArray) {
+    private boolean userNameIsOk(String[] userNamesArray) {
         return !(Arrays.stream(userNamesArray)
                 .map(s -> s.length() == ZERO)
                 .collect(Collectors.toList())

@@ -19,7 +19,6 @@ public class GameModel {
     private static final double ZERO_PROFIT = 0;
     private static final String DEALER = "dealer";
 
-
     private final Map<String, Double> playersAndProfits = new HashMap<>();
     private final List<Player> players = new ArrayList<>();
     private final Dealer dealer = new Dealer();
@@ -63,7 +62,7 @@ public class GameModel {
     }
 
     private boolean wantToHave(Player player) throws IOException {
-        return UserInput.inputHaveMore(player.getName());
+        return UserInput.inputWantToHaveMore(player.getName());
     }
 
     private boolean canHaveMore(Player player) {
@@ -113,10 +112,10 @@ public class GameModel {
     }
 
     private int makeRandomIndex() {
-        return checkDuplication((int) (Math.random() * CARD_COUNT));
+        return checkIndexDuplicated((int) (Math.random() * CARD_COUNT));
     }
 
-    private int checkDuplication(int randomIndex) {
+    private int checkIndexDuplicated(int randomIndex) {
         int before = setForRandomIndex.size();
         setForRandomIndex.add(randomIndex);
         int after = setForRandomIndex.size();
@@ -138,29 +137,6 @@ public class GameModel {
         return playersAndProfits;
     }
 
-    private double getTotalOfBetting(Map<String, Double> playersAndProfits, double totalOfBetting, Player player) {
-        if (player.isBurst() && !playersAndProfits.containsKey(player.getName())) {
-            playersAndProfits.put(player.getName(), (player.getBettingMoney() * MINUS_PROFIT));
-        }
-        totalOfBetting = compareDealerWithPlayer(playersAndProfits, totalOfBetting, player);
-        return totalOfBetting;
-    }
-
-    private double compareDealerWithPlayer(Map<String, Double> playersAndProfits, double totalOfBetting, Player player) {
-        if (player.cardSumWithAce() > dealer.cardSumWithAce() && !playersAndProfits.containsKey(player.getName())) {
-            playersAndProfits.put(player.getName(), player.getBettingMoney());
-            totalOfBetting -= player.getBettingMoney() * MULTIPLIER_PROFIT;
-        }
-        if (player.cardSumWithAce() == dealer.cardSumWithAce() && !playersAndProfits.containsKey(player.getName())) {
-            playersAndProfits.put(player.getName(), Double.valueOf(ZERO_PROFIT));
-            totalOfBetting -= player.getBettingMoney();
-        }
-        if (player.cardSumWithAce() < dealer.cardSumWithAce() && !playersAndProfits.containsKey(player.getName())) {
-            playersAndProfits.put(player.getName(), (player.getBettingMoney() * MINUS_PROFIT));
-        }
-        return totalOfBetting;
-    }
-
     private double getTotalOfBetting(Map<String, Double> playersAndProfits, double totalOfBetting) {
         for (Player player : players) {
             totalOfBetting = playerBurstOrNot(playersAndProfits, totalOfBetting, player);
@@ -173,6 +149,41 @@ public class GameModel {
             playersAndProfits.put(player.getName(), (player.getBettingMoney() * MINUS_PROFIT));
         }
         if (!playersAndProfits.containsKey(player.getName())) {
+            playersAndProfits.put(player.getName(), player.getBettingMoney());
+            totalOfBetting -= player.getBettingMoney() * MULTIPLIER_PROFIT;
+        }
+        return totalOfBetting;
+    }
+
+    private double getTotalOfBetting(Map<String, Double> playersAndProfits, double totalOfBetting, Player player) {
+        playerLose(playersAndProfits, player, player.isBurst());
+        totalOfBetting = compareDealerWithPlayer(playersAndProfits, totalOfBetting, player);
+        return totalOfBetting;
+    }
+
+    private double compareDealerWithPlayer(Map<String, Double> playersAndProfits, double totalOfBetting, Player player) {
+        totalOfBetting = playerWin(playersAndProfits, totalOfBetting, player);
+        totalOfBetting = playerDrawDealer(playersAndProfits, totalOfBetting, player);
+        playerLose(playersAndProfits, player, player.cardSumWithAce() < dealer.cardSumWithAce());
+        return totalOfBetting;
+    }
+
+    private void playerLose(Map<String, Double> playersAndProfits, Player player, boolean playerIsBurst) {
+        if (playerIsBurst && !playersAndProfits.containsKey(player.getName())) {
+            playersAndProfits.put(player.getName(), (player.getBettingMoney() * MINUS_PROFIT));
+        }
+    }
+
+    private double playerDrawDealer(Map<String, Double> playersAndProfits, double totalOfBetting, Player player) {
+        if (player.cardSumWithAce() == dealer.cardSumWithAce() && !playersAndProfits.containsKey(player.getName())) {
+            playersAndProfits.put(player.getName(), ZERO_PROFIT);
+            totalOfBetting -= player.getBettingMoney();
+        }
+        return totalOfBetting;
+    }
+
+    private double playerWin(Map<String, Double> playersAndProfits, double totalOfBetting, Player player) {
+        if (player.cardSumWithAce() > dealer.cardSumWithAce() && !playersAndProfits.containsKey(player.getName())) {
             playersAndProfits.put(player.getName(), player.getBettingMoney());
             totalOfBetting -= player.getBettingMoney() * MULTIPLIER_PROFIT;
         }

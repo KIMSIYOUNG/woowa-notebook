@@ -20,38 +20,38 @@ public abstract class User {
 
     public abstract String toString();
 
-    public boolean isBlackJackFirst(){
-        if(cardSumWithAce() == 21)
+    public boolean isBlackJackFirst() {
+        if (cardSumWithAce() == 21)
             return true;
         return false;
     }
 
-    public boolean hasAceCard(){
+    public boolean hasAceCard() {
         return cards.stream()
-                .map(s->s.getSymbol().getScore()==ACE)
+                .map(s -> s.getSymbol().getScore() == ACE)
                 .collect(Collectors.toList())
                 .contains(true);
     }
 
-    public int sumOfCardWithoutAce(){
+    public int sumOfCardWithoutAce() {
         int sum = 0;
-        for(Card card : cards){
+        for (Card card : cards) {
             sum += card.getSymbol().getScore();
         }
         return sum;
     }
 
-    public int cardSumWithAce(){
+    public int cardSumWithAce() {
         int sum = 0;
-        for(Card card : cards){
+        for (Card card : cards) {
             sum += card.getSymbol().getScore();
         }
-        if(hasAceCard() & sum <= 11)
+        if (hasAceCard() & sum <= 11)
             return sum += 10;
         return sum;
     }
 
     public boolean isBurst() {
-        return cardSumWithAce()>21;
+        return cardSumWithAce() > 21;
     }
 }

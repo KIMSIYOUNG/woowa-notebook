@@ -48,7 +48,7 @@ public class PrintHandler {
     }
 
     public static void giveOneMoreCardToDealer() {
-        System.out.println("\n"+GIVE_ONE_MORE_CARD_TO_DEALER);
+        System.out.println("\n" + GIVE_ONE_MORE_CARD_TO_DEALER);
     }
 
     public static void printCards(Player player) {
@@ -60,18 +60,18 @@ public class PrintHandler {
     }
 
     public static void printAllCards(List<Player> players, Dealer dealer) {
-        System.out.println(NEXT_LINE+ dealer.toString() + "결과 : " +dealer.cardSumWithAce());
-        for(Player player : players)
+        System.out.println(NEXT_LINE + dealer.toString() + "결과 : " + dealer.cardSumWithAce());
+        for (Player player : players)
             System.out.println(player.toString() + " 결과 : " + player.cardSumWithAce());
     }
 
     public static void printResult(Map<String, Double> result) {
-        System.out.println(NEXT_LINE+ "최종 수익 ");
+        System.out.println(NEXT_LINE + "최종 수익 ");
         Iterator<String> nameAndProfits = result.keySet().iterator();
-        while (nameAndProfits.hasNext()){
+        while (nameAndProfits.hasNext()) {
             String key = nameAndProfits.next();
             Double value = result.get(key);
-            System.out.println(key+ "님의 수익 : " + value);
+            System.out.println(key + "님의 수익 : " + value);
         }
 
     }

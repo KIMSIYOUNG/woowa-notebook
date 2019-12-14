@@ -6,6 +6,7 @@ import java.util.Objects;
  * 카드 한장을 의미하는 객체
  */
 public class Card {
+    private static final String BLANK = " ";
     private final Symbol symbol;
 
     private final Type type;
@@ -22,6 +23,7 @@ public class Card {
     public Type getType() {
         return type;
     }
+
 // TODO Card 관련 추가 기능 구현
 
     @Override
@@ -40,6 +42,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return  "" + symbol.getScore() + type;
+        return symbol + BLANK + type;
     }
 }

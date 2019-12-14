@@ -7,7 +7,7 @@ public class Application {
     public static void main(String[] args) throws IOException {
         try {
             GameController.start();
-        } catch (Exception e){
+        } catch (Exception e) {
             PrintHandler.printSystemError();
             e.printStackTrace();
         }
