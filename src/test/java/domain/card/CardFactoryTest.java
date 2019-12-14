@@ -12,5 +12,8 @@ public class CardFactoryTest {
         List<Card> cards = CardFactory.create();
         assertThat(cards).hasSize(52);
         System.out.println(cards);
+        System.out.println(cards.get(1).getSymbol().getScore());
+        System.out.println(cards.get(1).getSymbol());
+        System.out.println(cards.get(1).getType());
     }
 }

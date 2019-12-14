@@ -15,7 +15,14 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
+    public Type getType() {
+        return type;
+    }
+// TODO Card 관련 추가 기능 구현
 
     @Override
     public boolean equals(Object o) {
@@ -33,9 +40,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "symbol=" + symbol +
-                ", type=" + type +
-                '}';
+        return  "" + symbol.getScore() + type;
     }
 }
