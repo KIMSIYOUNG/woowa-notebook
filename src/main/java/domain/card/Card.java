@@ -42,6 +42,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return symbol + BLANK + type;
+        return symbol.getName() + BLANK + type;
     }
 }

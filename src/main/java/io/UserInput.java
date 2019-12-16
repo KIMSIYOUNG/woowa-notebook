@@ -11,6 +11,8 @@ public class UserInput {
     private static final String COMMA = ",";
     private static final int ZERO = 0;
     private static final int MAX_OF_USER = 8;
+    private static String NOT_WANT_ONE_MORE = "N";
+    private static String WANT_ONE_MORE = "Y";
     private static final int MIN_OF_USER = 2;
 
     public static boolean inputWantToHaveMore(String name) throws IOException {
@@ -20,9 +22,9 @@ public class UserInput {
     }
 
     private static boolean isItYes(String name, String userInput) throws IOException {
-        if(userInput.equals("Y"))
+        if (userInput.equals(WANT_ONE_MORE))
             return true;
-        if(!userInput.equals("N")){
+        if (!userInput.equals(NOT_WANT_ONE_MORE)) {
             PrintHandler.errorInputYesOrNo();
             return inputWantToHaveMore(name);
         }
@@ -57,7 +59,7 @@ public class UserInput {
 
     public List<Double> inputBettingMoney(List<String> userNames) throws IOException {
         List<Double> bettingMoney = new ArrayList<>();
-        for(String userName : userNames){
+        for (String userName : userNames) {
             PrintHandler.inputBettingMoney(userName);
             bettingMoney.add(bettingMoneyValidator());
         }
@@ -67,14 +69,14 @@ public class UserInput {
     private Double bettingMoneyValidator() throws IOException {
         try {
             return notZeroAndMinus(Double.parseDouble(BR.readLine().trim()));
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             PrintHandler.errorInputBettingMoney();
             return bettingMoneyValidator();
         }
     }
 
     private Double notZeroAndMinus(Double parseDouble) throws IOException {
-        if(parseDouble == ZERO || parseDouble < ZERO){
+        if (parseDouble == ZERO || parseDouble < ZERO) {
             PrintHandler.errorZeroException();
             return bettingMoneyValidator();
         }

@@ -3,7 +3,7 @@ package domain.user;
 /**
  * 게임 참여자를 의미하는 객체
  */
-public class Player extends User {
+public class Player extends Dealer {
     private final String name;
     private final double bettingMoney;
 
@@ -22,6 +22,7 @@ public class Player extends User {
     public double getBettingMoney() {
         return bettingMoney;
     }
+
 
     @Override
     public String toString() {

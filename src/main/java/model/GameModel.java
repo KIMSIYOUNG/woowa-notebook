@@ -16,7 +16,6 @@ public class GameModel {
     private static final double FIRST_BLACK_JACK = 1.5;
     private static final int MULTIPLIER_PROFIT = 2;
     private static final int MINUS_PROFIT = -1;
-    private static final double ZERO_PROFIT = 0;
     private static final String DEALER = "dealer";
 
     private final Map<String, Double> playersAndProfits = new HashMap<>();
