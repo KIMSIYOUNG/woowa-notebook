@@ -12,7 +12,6 @@ import onemoreblackjack.domain.Card;
 public class Player extends User {
     private final String name;
     private final double bettingMoney;
-    private final List<Card> cards = new ArrayList<>();
 
     public Player(String name, double bettingMoney) {
         this.name = name;
@@ -31,7 +30,6 @@ public class Player extends User {
     }
 
     public String toString() {
-
         return name + "의 카드 : "
                 + super.toString() + " 결과 : "+ sumOfCard();
     }
