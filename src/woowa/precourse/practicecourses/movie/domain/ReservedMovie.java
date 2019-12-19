@@ -14,16 +14,16 @@ public class ReservedMovie {
         this.count = count;
     }
 
-    public boolean isOneHourWithinRange(PlaySchedule otherPlaySchedule){
-        return DateTimeUtils.isOneHourWithinRange(playSchedule.getStartDateTime(),otherPlaySchedule.getStartDateTime());
+    public boolean isOneHourWithinRange(PlaySchedule otherPlaySchedule) {
+        return DateTimeUtils.isOneHourWithinRange(playSchedule.getStartDateTime(), otherPlaySchedule.getStartDateTime());
     }
 
-    public int calculateTotalMoney(){
+    public int calculateTotalMoney() {
         return movie.getPrice() * count;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return movie.getMovieInfo() + playSchedule.getScheduleInfo()
                 + " 예약된 인원 : " + count + NEW_LINE;
     }

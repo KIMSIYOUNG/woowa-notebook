@@ -44,7 +44,7 @@ public class Movie {
                 + sb.toString();
     }
 
-    public String getMovieInfo(){
+    public String getMovieInfo() {
         return id + " - " + name + ", " + price + "원" + NEW_LINE;
     }
 }

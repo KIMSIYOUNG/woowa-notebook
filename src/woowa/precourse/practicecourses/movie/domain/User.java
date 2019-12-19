@@ -12,24 +12,24 @@ public class User {
     private int point = 1000;
     private double totalMoney = 0;
 
-    public static User getInstance(){
-        if(Objects.isNull(user)){
+    public static User getInstance() {
+        if (Objects.isNull(user)) {
             return new User();
         }
         return user;
     }
 
-    public void addMovie(ReservedMovie reservedMovie){
+    public void addMovie(ReservedMovie reservedMovie) {
         movies.add(reservedMovie);
     }
 
-    public void usePoint(int howMuch){
+    public void usePoint(int howMuch) {
         point -= howMuch;
         totalMoney -= howMuch;
     }
 
-    public double getTotalPrice(Payment payment){
-        for(int i=0; i<movies.size(); i++){
+    public double getTotalPrice(Payment payment) {
+        for (int i = 0; i < movies.size(); i++) {
             totalMoney += movies.get(i).calculateTotalMoney();
         }
         totalMoney = payment.totalPriceWithDiscount(totalMoney);
@@ -37,7 +37,7 @@ public class User {
     }
 
     public boolean canUseThePoint(int parseInt) {
-        if(parseInt>=ZERO && parseInt <= point)
+        if (parseInt >= ZERO && parseInt <= point)
             return true;
         return false;
     }
@@ -47,9 +47,9 @@ public class User {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(ReservedMovie reservedMovie : movies){
+        for (ReservedMovie reservedMovie : movies) {
             sb.append(reservedMovie.toString());
         }
         return sb.toString();
@@ -57,10 +57,10 @@ public class User {
 
     public boolean canReserve(PlaySchedule playSchedule) {
         List<Boolean> list = new ArrayList<>();
-        for(ReservedMovie reservedMovie : movies){
+        for (ReservedMovie reservedMovie : movies) {
             list.add(reservedMovie.isOneHourWithinRange(playSchedule));
         }
-        if(movies.size() == 0){
+        if (movies.size() == 0) {
             return true;
         }
         return !list.contains(true);

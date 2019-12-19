@@ -17,11 +17,11 @@ public class PlaySchedule {
         return startDateTime;
     }
 
-    public boolean canReserve(int howMany){
+    public boolean canReserve(int howMany) {
         return capacity >= howMany;
     }
 
-    public void decreaseCapacity(int howMany){
+    public void decreaseCapacity(int howMany) {
         capacity -= howMany;
     }
 
@@ -30,7 +30,7 @@ public class PlaySchedule {
         return "시작시간: " + format(startDateTime) + " 예약가능인원: " + capacity + "\n";
     }
 
-    public String getScheduleInfo(){
+    public String getScheduleInfo() {
         return "시작시간: " + format(startDateTime);
     }
 }

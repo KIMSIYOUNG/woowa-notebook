@@ -10,15 +10,15 @@ public class MovieManager {
         this.movies = movies;
     }
 
-    public Movie getMovieFromId(int id){
-        for(Movie movie:movies){
-            if(movie.getId() ==id)
+    public Movie getMovieFromId(int id) {
+        for (Movie movie : movies) {
+            if (movie.getId() == id)
                 return movie;
         }
         throw new IllegalArgumentException("아이디가 존재하지 않습니다.");
     }
 
-    public PlaySchedule getPlayScheduleFromIdAndTime(int id, int time){
+    public PlaySchedule getPlayScheduleFromIdAndTime(int id, int time) {
         Movie movieFromId = getMovieFromId(id);
         return movieFromId.getPlaySchedules().get(time);
     }

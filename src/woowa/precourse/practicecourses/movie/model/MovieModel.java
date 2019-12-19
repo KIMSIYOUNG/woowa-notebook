@@ -25,8 +25,8 @@ public class MovieModel {
             int movieId = inputView.inputMovieId();
             int movieNumber = inputView.inputMovieNumber(movieId);
             int howMany = inputView.inputHowMany(movieId, movieNumber);
-            checkAndAddToReserveList(movieId,movieNumber,howMany);
-        }while (inputView.inputMoreReserve());
+            checkAndAddToReserveList(movieId, movieNumber, howMany);
+        } while (inputView.inputMoreReserve());
         startPayment();
     }
 
@@ -44,8 +44,8 @@ public class MovieModel {
         MovieManager movieManager = new MovieManager(movies);
         Movie movie = movieManager.getMovieFromId(movieId);
         PlaySchedule playSchedule = movieManager.getPlayScheduleFromIdAndTime(movieId, movieNumber);
-        if(user.canReserve(playSchedule)){
-            user.addMovie(new ReservedMovie(movie,playSchedule,howMany));
+        if (user.canReserve(playSchedule)) {
+            user.addMovie(new ReservedMovie(movie, playSchedule, howMany));
             playSchedule.decreaseCapacity(howMany);
             return true;
         }
