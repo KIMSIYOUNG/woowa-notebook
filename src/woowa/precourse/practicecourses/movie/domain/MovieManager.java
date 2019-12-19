@@ -1,10 +1,9 @@
 package woowa.precourse.practicecourses.movie.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieManager {
-    private List<Movie> movies = new ArrayList<>();
+    private List<Movie> movies;
 
     public MovieManager(List<Movie> movies) {
         this.movies = movies;
