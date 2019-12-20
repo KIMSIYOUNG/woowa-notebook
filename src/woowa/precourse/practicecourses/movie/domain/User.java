@@ -7,7 +7,7 @@ public class User {
     private static final int ZERO = 0;
 
     private static User user;
-    private List<ReservedMovie> movies = new ArrayList<>();
+    private final List<ReservedMovie> movies = new ArrayList<>();
     private int point = 1000;
     private double totalMoney = 0;
 
