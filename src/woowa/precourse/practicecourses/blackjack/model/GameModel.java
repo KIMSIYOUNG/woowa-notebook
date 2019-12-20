@@ -43,7 +43,6 @@ public class GameModel<T extends User> {
         return index;
     }
 
-
     public void giveCards() throws IOException {
         for (Player player : players) {
             giveTwoCards(player);
