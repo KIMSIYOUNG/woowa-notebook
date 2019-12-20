@@ -55,13 +55,8 @@ public class User {
     }
 
     public boolean canReserve(PlaySchedule playSchedule) {
-        List<Boolean> list = new ArrayList<>();
-        for (ReservedMovie reservedMovie : movies) {
-            list.add(reservedMovie.isOneHourWithinRange(playSchedule));
-        }
-        if (movies.size() == 0) {
-            return true;
-        }
-        return !list.contains(true);
+        if(movies.stream().anyMatch(s->s.isOneHourWithinRange(playSchedule)))
+            return false;
+        return true;
     }
 }
