@@ -10,11 +10,10 @@ public class MovieManager {
     }
 
     public Movie getMovieFromId(int id) {
-        for (Movie movie : movies) {
-            if (movie.getId() == id)
-                return movie;
-        }
-        throw new IllegalArgumentException("아이디가 존재하지 않습니다.");
+        return movies.stream()
+                .filter(s->s.getId()==id)
+                .findFirst()
+                .get();
     }
 
     public PlaySchedule getPlayScheduleFromIdAndTime(int id, int time) {

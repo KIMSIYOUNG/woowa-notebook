@@ -2,7 +2,6 @@ package woowa.precourse.practicecourses.movie.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class User {
     private static final int ZERO = 0;
@@ -13,8 +12,8 @@ public class User {
     private double totalMoney = 0;
 
     public static User getInstance() {
-        if (Objects.isNull(user)) {
-            return new User();
+        if (user == null) {
+            user = new User();
         }
         return user;
     }
@@ -29,8 +28,8 @@ public class User {
     }
 
     public double getTotalPrice(Payment payment) {
-        for (int i = 0; i < movies.size(); i++) {
-            totalMoney += movies.get(i).calculateTotalMoney();
+        for (ReservedMovie movie : movies) {
+            totalMoney += movie.calculateTotalMoney();
         }
         totalMoney = payment.totalPriceWithDiscount(totalMoney);
         return totalMoney;
