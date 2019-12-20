@@ -65,6 +65,7 @@ public class GameModel<T extends User> {
         }
     }
 
+
     private static int chooseRandomCard() {
         return (int) (Math.random() * CARD_RANGE);
     }

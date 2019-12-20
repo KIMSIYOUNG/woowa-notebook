@@ -12,8 +12,6 @@ public class UserInput {
     private static final String COMMA = ",";
     private static final int ZERO = 0;
 
-    private static Map<String, Double> userMap = new HashMap<>();
-
     private static InputValidator validator = new InputValidator();
 
     public List<String> makeUserNames() throws IOException {
